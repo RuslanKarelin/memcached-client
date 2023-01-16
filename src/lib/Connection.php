@@ -2,6 +2,7 @@
 
 namespace MemcachedClient\lib;
 
+use Exception;
 use MemcachedClient\lib\Exceptions\ConnectionException;
 
 class Connection
@@ -17,12 +18,12 @@ class Connection
     ) {
         try {
             $this->resource = fsockopen($this->hostname, $this->port);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             throw new ConnectionException($exception->getMessage(), 500);
         }
     }
 
-    public function getResource(): mixed
+    public function getResource()
     {
         return $this->resource;
     }

@@ -2,6 +2,7 @@
 
 namespace MemcachedClient\lib\Actions;
 
+use Exception;
 use MemcachedClient\lib\Connection;
 use MemcachedClient\lib\Exceptions\StoreException;
 
@@ -23,7 +24,7 @@ class Remover
             if ('DELETED' !== trim($response)) {
                 throw new StoreException('Delete fail, key not exists.', 500);
             }
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             throw new StoreException($exception->getMessage(), 500);
         }
 

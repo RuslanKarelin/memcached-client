@@ -21,9 +21,8 @@ class MemcashedClient
      */
     public function __construct(
         string $hostname,
-        int    $port = 11211
-    )
-    {
+        int $port = 11211
+    ) {
         $this->connection = new Connection($hostname, $port);
         $this->setter = new Setter($this->connection);
         $this->getter = new Getter($this->connection);
@@ -43,11 +42,10 @@ class MemcashedClient
      */
     public function set(
         string $key,
-        mixed  $value,
-        int    $flag = 0,
-        int    $exptime = 0
-    ): bool
-    {
+        mixed $value,
+        int $flag = 0,
+        int $exptime = 0
+    ): bool {
         return $this->setter->set($key, $value, $flag, $exptime);
     }
 
@@ -57,11 +55,6 @@ class MemcashedClient
     public function delete(string $key): bool
     {
         return $this->remover->delete($key);
-    }
-
-    public function close(): void
-    {
-        $this->connection->close();
     }
 
     public function __destruct()

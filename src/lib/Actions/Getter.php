@@ -2,6 +2,7 @@
 
 namespace MemcachedClient\lib\Actions;
 
+use Exception;
 use MemcachedClient\lib\Connection;
 use MemcachedClient\lib\Exceptions\StoreException;
 
@@ -30,7 +31,7 @@ class Getter
                     $response = fgets($resource);
                 }
             }
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             throw new StoreException($exception->getMessage(), 500);
         }
 

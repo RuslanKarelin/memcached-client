@@ -31,4 +31,4 @@ jobs:
         with:
           php_codesniffer: true
           # Optional: Ignore warnings
-          php_codesniffer_args: "-standard=PSR12"
+          php_codesniffer_args: "--standard=PSR12"

@@ -2,6 +2,8 @@
 
 namespace MemcachedClient\lib\Exceptions;
 
-class StoreException extends \Exception
+use Exception;
+
+class StoreException extends Exception
 {
 }

@@ -1,7 +1,9 @@
 <?php
+
+namespace MemcachedClient;
+
 use PHPUnit\Framework\TestCase;
 use MemcachedClient\MemcashedClient;
-
 
 class MemcashedClientTest extends TestCase
 {
@@ -21,11 +23,11 @@ class MemcashedClientTest extends TestCase
     public function testSet()
     {
         $this->assertEquals(true, $this->client->set('test', 'new value'));
-        $this->assertEquals('new value',  $this->client->get('test'));
+        $this->assertEquals('new value', $this->client->get('test'));
     }
 
     public function testDelete()
     {
-        $this->assertEquals(true,  $this->client->delete('test'));
+        $this->assertEquals(true, $this->client->delete('test'));
     }
 }

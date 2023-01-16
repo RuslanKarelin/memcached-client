@@ -2,6 +2,8 @@
 
 namespace MemcachedClient\lib\Exceptions;
 
-class ConnectionException extends \Exception
+use Exception;
+
+class ConnectionException extends Exception
 {
 }
