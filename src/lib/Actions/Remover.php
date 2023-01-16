@@ -2,12 +2,15 @@
 
 namespace MemcachedClient\lib\Actions;
 
-use Exception;
 use MemcachedClient\lib\Connection;
 use MemcachedClient\lib\Exceptions\StoreException;
+use MemcachedClient\lib\Helpers\WriteErrorHelper;
 
 class Remover
 {
+    /**
+     * @param Connection $connection
+     */
     public function __construct(private readonly Connection $connection)
     {
     }
@@ -18,16 +21,12 @@ class Remover
     public function delete(string $key): bool
     {
         $resource = $this->connection->getResource();
-        try {
-            fwrite($resource, 'delete ' . $key . "\r\n");
-            $response = fgets($resource);
-            if ('DELETED' !== trim($response)) {
-                throw new StoreException('Delete fail, key not exists.', 500);
-            }
-        } catch (Exception $exception) {
-            throw new StoreException($exception->getMessage(), 500);
+        $result = fwrite($resource, 'delete ' . $key . "\r\n");
+        WriteErrorHelper::throwErrorIf($result);
+        $response = fgets($resource);
+        if ('DELETED' !== trim($response) || is_bool($response)) {
+            throw new StoreException('Delete fail, key not exists.', 500);
         }
-
         return true;
     }
 }

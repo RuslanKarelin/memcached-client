@@ -7,6 +7,9 @@ use MemcachedClient\lib\Exceptions\ConnectionException;
 
 class Connection
 {
+    /**
+     * @var false|resource
+     */
     private $resource;
 
     /**
@@ -16,18 +19,23 @@ class Connection
         private readonly string $hostname,
         private readonly int $port
     ) {
-        try {
-            $this->resource = fsockopen($this->hostname, $this->port);
-        } catch (Exception $exception) {
-            throw new ConnectionException($exception->getMessage(), 500);
+        $this->resource = fsockopen($this->hostname, $this->port);
+        if (!$this->resource) {
+            throw new ConnectionException('Connection error', 500);
         }
     }
 
+    /**
+     * @return false|resource
+     */
     public function getResource()
     {
         return $this->resource;
     }
 
+    /**
+     * @return void
+     */
     public function close(): void
     {
         fclose($this->resource);

@@ -9,7 +9,7 @@ use MemcachedClient\lib\Connection;
 use MemcachedClient\lib\Exceptions\ConnectionException;
 use MemcachedClient\lib\Exceptions\StoreException;
 
-class MemcashedClient
+class MemcachedClient
 {
     private Connection $connection;
     private Getter $getter;
@@ -55,6 +55,11 @@ class MemcashedClient
     public function delete(string $key): bool
     {
         return $this->remover->delete($key);
+    }
+
+    public function connectionClose()
+    {
+        $this->connection->close();
     }
 
     public function __destruct()

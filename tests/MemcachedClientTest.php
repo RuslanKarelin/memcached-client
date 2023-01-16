@@ -3,21 +3,27 @@
 namespace MemcachedClient;
 
 use PHPUnit\Framework\TestCase;
-use MemcachedClient\MemcashedClient;
+use MemcachedClient\MemcachedClient;
 
-class MemcashedClientTest extends TestCase
+class MemcachedClientTest extends TestCase
 {
-    protected MemcashedClient $client;
+    protected MemcachedClient $client;
 
     protected function setUp(): void
     {
-        $this->client = new MemcashedClient('localhost', 11211);
+        $this->client = new MemcachedClient('localhost', 11211);
     }
 
     public function testGet()
     {
         $this->client->set('test', 'test value');
         $this->assertEquals('test value', $this->client->get('test'));
+
+        $this->client->set('test', 10);
+        $this->assertEquals(10, $this->client->get('test'));
+
+        $this->client->set('test', [10]);
+        $this->assertEquals([10], $this->client->get('test'));
     }
 
     public function testSet()
